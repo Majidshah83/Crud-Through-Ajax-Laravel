@@ -22,5 +22,6 @@ Route::get('/', function () {
 Route::get('ajax-book-crud', [AjaxBOOKCRUDController::class, 'index']);
 Route::get('fetch-books', [AjaxBOOKCRUDController::class, 'fetchbook']);
 Route::post('update-book/{id}',[AjaxBOOKCRUDController::class, 'update']);
+Route::post('add-book',[AjaxBOOKCRUDController::class, 'store']);
 Route::get('edit-book/{id}', [AjaxBOOKCRUDController::class, 'edit']);
 Route::delete('delete-book/{id}', [AjaxBOOKCRUDController::class, 'destroy']);

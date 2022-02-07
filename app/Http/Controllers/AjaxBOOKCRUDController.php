@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Redirect;
 use App\Models\Book;
+use Validator;
 
 class AjaxBOOKCRUDController extends Controller
 {
@@ -36,7 +37,38 @@ class AjaxBOOKCRUDController extends Controller
     
      */
   
-   
+   public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title'=> 'required',
+            'code'=>'required',
+            'author'=>'required',
+           
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->messages()
+            ]);
+        }
+        else
+        {
+            $book = new Book;
+            $book->title = $request->input('title');
+            $book->code = $request->input('code');
+            $book->author = $request->input('author');
+           
+            $book->save();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Book Added Successfully.'
+            ]);
+        }
+
+    }
+
     
     /**
      * Show the form for editing the specified resource.
